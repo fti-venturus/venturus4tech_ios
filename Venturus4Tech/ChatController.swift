@@ -12,11 +12,8 @@ class ChatController : UIViewController {
     
     var userNick : String?;
     
-    @IBOutlet weak var nameLabel: UILabel!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        nameLabel.text = userNick
     }
     
     @IBAction func onSendClick(_ sender: Any) {
