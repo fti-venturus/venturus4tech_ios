@@ -6,6 +6,6 @@ target 'Venturus4Tech' do
   use_frameworks!
 
   # Pods for Venturus4Tech
-  pod 'Socket.IO-Client-Swift', '~> 10.2.0'
+  pod 'Socket.IO-Client-Swift'
   pod 'IQKeyboardManagerSwift'
 end

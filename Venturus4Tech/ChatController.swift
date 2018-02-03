@@ -40,7 +40,7 @@ class ChatController : UIViewController, UITableViewDataSource, UITextFieldDeleg
     }
     
     func registerSocketEvents() {
-        socket?.on("messages") {data, ack in
+        socket?.on("message") {data, ack in
             if let aMsg = data as? [[String: Any]]  {
                 for i in 0..<aMsg.count {
                     self.msgs.append(aMsg[i])
@@ -65,23 +65,16 @@ class ChatController : UIViewController, UITableViewDataSource, UITextFieldDeleg
         var json : [String : Any] = [:];
         json["author"] = userNick
         json["message"] = inputTextField.text
-        socket?.emit("messages", json)
+        socket?.emit("message", json)
+        inputTextField.text=""
     }
     
     func getHistory() {
-        let url = URL(string: "http://172.24.39.18:3000/history")
-        
-        let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
-            let json = try? JSONSerialization.jsonObject(with: data!, options: [])
-            if let msgList = json as? [[String: Any]]  {
-                self.msgs.append(contentsOf: msgList)
-                self.tableView.reloadData()
-                self.tableView.scrollToRow(at: IndexPath(row: self.msgs.count-1, section: 0),
-                                           at: .bottom, animated: true)
-            }
+        if self.msgs.count > 0{
+            self.tableView.reloadData()
+            self.tableView.scrollToRow(at: IndexPath(row: self.msgs.count-1, section: 0),
+                                       at: .bottom, animated: true)
         }
-        
-        task.resume()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -99,15 +92,16 @@ class ChatController : UIViewController, UITableViewDataSource, UITextFieldDeleg
         let pos = indexPath.row
         let msg = msgs[pos]
         let msgText = msg["message"] as? String
+        let author  = msg["author"] as? String
         
         cell.message.text = msgText
-        cell.username.text = msg["author"] as? String
-        cell.dateLabel.text = "\(msg["sent"] as! String)"
-        cell.userInitial.text = "\(cell.username.text!.characters.first!)"
+        cell.username.text = author
+        cell.dateLabel.text = "\(msg["time"] as! String)"
+        cell.userInitial.text = author?.characters.first?.description
         
         return cell
     }
- 
+    
     func playSound() {
         guard let url = Bundle.main.url(forResource: "msg_sound", withExtension: "mp3") else {
             print("error")
@@ -128,7 +122,7 @@ class ChatController : UIViewController, UITableViewDataSource, UITextFieldDeleg
             print(error.localizedDescription)
         }
     }
-
+    
     @IBAction func onSoundButtonClick(_ sender: Any) {
         saveSoundPref()
         guard let button = sender as? UIButton else {
