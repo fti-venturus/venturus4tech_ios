@@ -27,7 +27,7 @@ class ChatController : UIViewController, UITableViewDataSource {
         var json : [String : Any] = [:];
         json["author"] = "Guca"
         json["message"] = "E ae, tudo bem?"
-        json["sent"] = 123456
+        json["time"] = "123456"
         msgs.append(json)
         
         tableView.beginUpdates()
