@@ -1,15 +1,15 @@
 PODS:
-  - IQKeyboardManagerSwift (4.0.10)
-  - Socket.IO-Client-Swift (10.2.0)
+  - Socket.IO-Client-Swift (11.1.3):
+    - StarscreamSocketIO (~> 8.0.5)
+  - StarscreamSocketIO (8.0.7)
 
 DEPENDENCIES:
-  - IQKeyboardManagerSwift
-  - Socket.IO-Client-Swift (~> 10.2.0)
+  - Socket.IO-Client-Swift (~> 11.1.3)
 
 SPEC CHECKSUMS:
-  IQKeyboardManagerSwift: 75ba21a23794a1e6b6fe6d9a267ea17f80e06771
-  Socket.IO-Client-Swift: ecd7fe4d2746a7557e71c2d6e95e23e3be31ddd1
+  Socket.IO-Client-Swift: b8e59ddc16bc3609ca2f49a4b50253f095d535c8
+  StarscreamSocketIO: 00b54e4208481ca5cef089545353aaf126bae16d
 
-PODFILE CHECKSUM: 621644597df2ed409718d8c36b607909db0b3508
+PODFILE CHECKSUM: 64c963bddc160d2378b21019e728b2e1fabfbd24
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.4.0
